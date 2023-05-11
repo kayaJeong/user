@@ -1,0 +1,38 @@
+[2023-04-06 09:39:25] at /sysop/user/user_0insert.jsp
+{DB.query} SELECT  COUNT(*) AS count  FROM TB_USER WHERE login_id = ? '33' => You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? '33'' at line 1 (You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? '33'' at line 1)
+[2023-04-06 09:39:41] at /sysop/user/user_0insert.jsp
+{DB.query} SELECT  COUNT(*) AS count  FROM TB_USER WHERE login_id = ? 'kaya' => You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1 (You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1)
+[2023-04-06 09:40:01] at /sysop/user/user_0insert.jsp
+{DB.query} SELECT  COUNT(*) AS count  FROM TB_USER WHERE login_id = ? 'kaya' => You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1 (You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1)
+[2023-04-06 09:40:05] at /sysop/user/user_0insert.jsp
+{DB.query} SELECT  COUNT(*) AS count  FROM TB_USER WHERE login_id = ? 'kaya' => You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1 (You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1)
+[2023-04-06 09:42:05] at /sysop/user/user_0insert.jsp
+{DB.query} SELECT  COUNT(*) AS count  FROM TB_USER WHERE login_id = ? 'kaya' => You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1 (You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1)
+[2023-04-06 09:42:27] at /sysop/user/user_0insert.jsp
+{DB.query} SELECT  COUNT(*) AS count  FROM TB_USER WHERE login_id = ? 'kaya' => You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1 (You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '? 'kaya'' at line 1)
+[2023-04-06 13:47:01] at /sysop/user/user_0insert.jsp
+{DB.execute} INSERT INTO TB_USER (status,phone,login_id,email,password,reg_date) VALUES (?,?,?,?,?,?) => Data truncation: Data too long for column 'PHONE' at row 1
+{status=1, phone=8D0rJpkfngcAvFqKwoZ0zA==, login_id=kaya12, email=kaya@malgnsoft.com, password=bc9aca4e42a5fa5417d0d2a7a4f299eac609d4c984cf879235ea0db9bcb9e334, reg_date=20230406134701} (Data truncation: Data too long for column 'PHONE' at row 1)
+[2023-04-06 13:47:38] at /sysop/user/user_0insert.jsp
+{DB.execute} INSERT INTO TB_USER (status,phone,login_id,email,password,reg_date) VALUES (?,?,?,?,?,?) => Data truncation: Data too long for column 'PHONE' at row 1
+{status=1, phone=8D0rJpkfngcAvFqKwoZ0zA==, login_id=kaya12, email=kaya@malgnsoft.com, password=bc9aca4e42a5fa5417d0d2a7a4f299eac609d4c984cf879235ea0db9bcb9e334, reg_date=20230406134738} (Data truncation: Data too long for column 'PHONE' at row 1)
+[2023-04-06 13:48:32] at /sysop/user/user_0insert.jsp
+{DB.execute} INSERT INTO TB_USER (status,phone,login_id,email,password,reg_date) VALUES (?,?,?,?,?,?) => Data truncation: Data too long for column 'PHONE' at row 1
+{status=1, phone=8D0rJpkfngcAvFqKwoZ0zA==, login_id=kaya123, email=kaya@malgnsoft.com, password=bc9aca4e42a5fa5417d0d2a7a4f299eac609d4c984cf879235ea0db9bcb9e334, reg_date=20230406134832} (Data truncation: Data too long for column 'PHONE' at row 1)
+[2023-04-06 13:49:18] at /sysop/user/user_0insert.jsp
+{DB.execute} INSERT INTO TB_USER (status,phone,login_id,email,password,reg_date) VALUES (?,?,?,?,?,?) => Data truncation: Data too long for column 'PHONE' at row 1
+{status=1, phone=8D0rJpkfngcAvFqKwoZ0zA==, login_id=kaya123, email=kaya@malgnsoft.com, password=bc9aca4e42a5fa5417d0d2a7a4f299eac609d4c984cf879235ea0db9bcb9e334, reg_date=20230406134918} (Data truncation: Data too long for column 'PHONE' at row 1)
+[2023-04-06 15:12:11] at /sysop/user/user_0list.jsp
+{SimpleAES.decrypt} encryptedValue:kay3333a@malgnsoft.com, key:null (Length of Base64 encoded input string is not a multiple of 4.)
+[2023-04-06 15:12:11] at /sysop/user/user_0list.jsp
+{SimpleAES.decrypt} encryptedValue:kaya@malgnsoft.com, key:null (Length of Base64 encoded input string is not a multiple of 4.)
+[2023-04-06 15:12:38] at /sysop/user/user_0list.jsp
+{SimpleAES.decrypt} encryptedValue:kay3333a@malgnsoft.com, key:null (Length of Base64 encoded input string is not a multiple of 4.)
+[2023-04-06 15:12:38] at /sysop/user/user_0list.jsp
+{SimpleAES.decrypt} encryptedValue:kaya@malgnsoft.com, key:null (Length of Base64 encoded input string is not a multiple of 4.)
+[2023-04-06 15:15:35] at /sysop/user/user_0list.jsp
+{SimpleAES.decrypt} encryptedValue:kay3333a@malgnsoft.com, key:null (Length of Base64 encoded input string is not a multiple of 4.)
+[2023-04-06 15:15:35] at /sysop/user/user_0list.jsp
+{SimpleAES.decrypt} encryptedValue:kaya@malgnsoft.com, key:null (Length of Base64 encoded input string is not a multiple of 4.)
+[2023-04-06 17:08:15] at /main/index.jsp
+{DB.query} SELECT * FROM LM_COURSE WHERE  status = '1' AND recomm_yn = 'Y'  => Table 'kaya.LM_COURSE' doesn't exist (Table 'kaya.LM_COURSE' doesn't exist)

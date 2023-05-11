@@ -1,0 +1,17 @@
+gittest/
+public_html4/
+public_html_old/
+public_html_old3/
+sysop/
+temp/
+otes.iml/
+public_html.iml/
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+.idea
+.pki
+.viminfo
+.vim
+*.iml

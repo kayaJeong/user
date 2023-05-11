@@ -1,0 +1,2 @@
+[2023-04-09 16:04:28] at /main/index.jsp
+{DB.query} SELECT * FROM LM_COURSE WHERE  status = '1' AND recomm_yn = 'Y'  => Table 'kaya.LM_COURSE' doesn't exist (Table 'kaya.LM_COURSE' doesn't exist)

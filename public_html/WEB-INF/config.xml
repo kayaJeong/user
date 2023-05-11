@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <env>
+        <docRoot>/home/kaya/public_html</docRoot>
+        <tplRoot>/home/kaya/public_html/html</tplRoot>
+        <dataDir>/home/kaya/public_html/data</dataDir>
+        <dataUrl>/data</dataUrl>
+        <logDir>/home/kaya/public_html/WEB-INF/logs</logDir>
+        <webUrl>http://otes.malgn.co.kr</webUrl>
+        <fileDir>/home/kaya/public_html/data/file</fileDir>
+        <jndi>jdbc/kaya</jndi>
+    </env>
+</config>
