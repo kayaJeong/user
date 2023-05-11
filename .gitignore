@@ -2,7 +2,6 @@ gittest/
 public_html4/
 public_html_old/
 public_html_old3/
-sysop/
 temp/
 otes.iml/
 public_html.iml/
@@ -15,3 +14,4 @@ public_html.iml/
 .viminfo
 .vim
 *.iml
+/sysop/

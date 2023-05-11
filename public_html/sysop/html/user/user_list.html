@@ -1,0 +1,64 @@
+
+<style>
+.list_box{margin-top: 20px}
+.list_box table{width: 100%; border-top: 2px solid lightgrey}
+.list_box table th{border-bottom: 1px solid lightgrey; height: 40px; font-size: 15px}
+.list_box table td{border-bottom: 1px solid lightgrey; height: 30px; font-size: 12px;}
+
+.pagenation{display: block; text-align: center; font-size: 0; margin-top: 40px}
+.pagenation a{display: inline-block; border: 1px solid lightgrey; text-align: center; width:25px; height: 25px; line-height: 28px; box-sizing: border-box; font-size: 12px}
+.pagenation a + a {margin-left: 8px}
+
+</style>
+
+<button type="button" class="btn btn-primary" onclick="location.href='./user_insert.jsp'">회원등록</button>
+
+<form name="form2" method="post"></form>
+
+
+
+
+<form name="form1" method="get">
+    <div class="list_box">
+        <table>
+            <caption>회원목록</caption>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>소속</th>
+                    <th>회원유형</th>
+                    <th>회원명(회원아이디)</th>
+                    <th>휴대전화번호</th>
+                    <th>이메일</th>
+                    <th>상태</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!--@loop(list)-->
+                <tr>
+                    <td>{{list.__ord}}</td>
+                    <td>소속</td>
+                    <td>{{list.user_kind}}</td>
+                    <td>{{list.user_nm}}({{list.login_id}})</td>
+                    <td>{{list.phone_conv}}</td>
+                    <td>{{list.email_conv}}</td>
+                    <td>{{list.status}}</td>
+                </tr>
+                <!--/loop(list)-->
+            </tbody>
+        </table>
+
+        <div class="pagenation">
+            <a href="#">&lt;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">&gt;</a>
+        </div>
+    </div>
+
+</form>
+{{form_script}}
+
