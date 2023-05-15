@@ -50,7 +50,9 @@ if (m.isPost() && f.validate()) {
     }
 
     user.item("fail_count", 0);
-    user.update("id = " + info.i("id"));
+    if(!user.update("id = " + info.i("id"))){
+        m.jsAlert("로그인 중 오류가 발생했습니다.");
+    };
 
     //인증
     auth.put("ID", info.i("id"));
@@ -61,7 +63,7 @@ if (m.isPost() && f.validate()) {
 
     //이동
     m.jsAlert("로그인 완료");
-    m.jsReplace("index.jsp", "parent");
+//    m.jsReplace("index.jsp", "parent");
     return;
 }
 

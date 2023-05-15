@@ -58,28 +58,29 @@ String sysNow = m.time("yyyyMMddHHmmss");
 
 SessionDao mSession = new SessionDao(request, response);
 
-
 Page p = new Page(tplRoot);
 p.setRequest(request);
 p.setPageContext(pageContext);
 p.setWriter(out);
 
-//\ub85c\uadf8\uc778 \uc5ec\ubd80\ub97c \uccb4\ud06c
+
+// \ub85c\uadf8\uc778 \uc5ec\ubd80 \uccb4\ud06c
 Auth auth = new Auth(request, response);
-
 auth.loginURL = "/sysop/main/login.jsp";
-auth.keyName = "KAYAKEY";
-
-/*if(auth.isValid()) {
-
+//auth.keyName = "ENTER2022BO";
+if(auth.isValid()) {
     userId = m.parseInt(auth.getString("ID"));
-    loginId = auth.getString("LOGIN_ID");
-    userName = auth.getString("USERNAME");
-//    email = auth.getString("EMAIL");
-    userKind = auth.getString("KIND");
+    loginId = auth.getString("LOGINID");
+    userName = auth.getString("NAME");
+//    userType = auth.getString("TYPE");
 
-    userSessionId = auth.getString("SESSIONID");
-}*/
+} else {
+    if(request.getRequestURI().indexOf("/sysop/main/login.jsp") == -1
+            && request.getRequestURI().indexOf("/sysop/user/password_find.jsp") == -1 ) { //\ub85c\uadf8\uc778 \ud398\uc774\uc9c0\uba74 \uc81c\uc678
+        m.jsReplace(auth.loginURL, "top");
+        return;
+    }
+}
 
 
 
@@ -163,7 +164,7 @@ auth.keyName = "KAYAKEY";
     com.caucho.vfs.Depend depend;
     depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/index.jsp"), 240477681540674288L, false);
     com.caucho.jsp.JavaPage.addDepend(_caucho_depends, depend);
-    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/init.jsp"), -4446093587189101146L, false);
+    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/init.jsp"), -5300827354373470630L, false);
     com.caucho.jsp.JavaPage.addDepend(_caucho_depends, depend);
   }
 }

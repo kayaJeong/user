@@ -47,36 +47,40 @@ Form f = new Form("form1");
 f.setRequest(request);
 
 //\uae30\ubcf8\uc815\ubcf4
-/*int userId = 0;
+int userId = 0;
 String loginId = "";
 String userName = "";
 String userKind = "";
-String userGroups = "";
 String userSessionId = "";
+
 String sysToday = m.time("yyyyMMdd");
-String sysNow = m.time("yyyyMMddHHmmss");*/
+String sysNow = m.time("yyyyMMddHHmmss");
 
 SessionDao mSession = new SessionDao(request, response);
-
-//\ub85c\uadf8\uc778 \uc5ec\ubd80\ub97c \uccb4\ud06c
-Auth auth = new Auth(request, response);
-    String userId = null;
-    String userSessionId = null;
-///*auth.loginURL = "/sysop/main/login.jsp";
-auth.keyName = "KAYAKEY";
-if(auth.isValid()) {
- /*   userId = m.parseInt(auth.getString("ID"));
-    loginId = auth.getString("LOGIN_ID");
-    userSessionId = auth.getString("SESSIONID");*/
-}
-
-
-
 
 Page p = new Page(tplRoot);
 p.setRequest(request);
 p.setPageContext(pageContext);
 p.setWriter(out);
+
+
+// \ub85c\uadf8\uc778 \uc5ec\ubd80 \uccb4\ud06c
+Auth auth = new Auth(request, response);
+auth.loginURL = "/sysop/main/login.jsp";
+//auth.keyName = "ENTER2022BO";
+if(auth.isValid()) {
+    userId = m.parseInt(auth.getString("ID"));
+    loginId = auth.getString("LOGINID");
+    userName = auth.getString("NAME");
+//    userType = auth.getString("TYPE");
+
+} /*else {
+    if(request.getRequestURI().indexOf("/sysop/main/login.jsp") == -1
+            && request.getRequestURI().indexOf("/sysop/user/password_find.jsp") == -1 ) { //\ub85c\uadf8\uc778 \ud398\uc774\uc9c0\uba74 \uc81c\uc678
+        m.jsReplace(auth.loginURL, "top");
+        return;
+    }
+}*/
 
 
 
@@ -89,20 +93,107 @@ String ch = "sysop";
 
       
 
-
-
 UserDao user= new UserDao();
 
 f.addElement("login_id", null, "hname:'\ud68c\uc6d0\uc544\uc774\ub514', required:'Y'");
-f.addElement("email", null, "hname:'\uc774\uba54\uc77c'");
+f.addElement("email", null, "hname:'\uc774\uba54\uc77c', required:'Y'");
 
 if (m.isPost() && f.validate()) {
-    //\ud68c\uc6d0\uc544\uc774\ub514\uc640 \uc774\uba54\uc77c\uc774 \ub9de\ub294\uc9c0 \ud655\uc778
+    m.jsAlert(m.rs("send_auth_no"));
+    if ("send_auth_no".equals(m.rs("send_auth_no"))){
+        //\ub85c\uadf8\uc778\uc544\uc774\ub514\uc640 \uc774\uba54\uc77c\uc774 \ub9de\ub294\uc9c0 \ud655\uc778
+        DataSet info = user.find("login_id = ? AND email = ? ", new Object[] { f.get("login_id"), f.get("email") });
+        if(!info.next()){
+            m.jsAlert("\uc815\ud655\ud558\uc9c0 \uc54a\uc740 \ud68c\uc6d0\uc815\ubcf4\uc785\ub2c8\ub2e4. ");
+            return;
+        }
+
+        //\uc774\uba54\uc77c\uc5d0 \uc784\uc2dc \ube44\ubc88 \uc804\uc1a1
+    //    int authNo = m.getRandInt(123456, 864198);
+        int authNo = (int)(Math.random() * 899999) + 100000; //100000 ~ 999999\ub09c\uc218
+
+        p.setVar("auth_no", authNo);
+
+        String mbody = "\uc778\uc99d\ubc88\ud638\uac00 \ubc1c\uc1a1\ub410\uc2b5\ub2c8\ub2e4.";
+        mbody = p.fetchString("\uc778\uc99d\ubc88\ud638\ub294" + authNo + "\uc785\ub2c8\ub2e4.");
+
+        p.setLayout("blank");
+        p.setVar("user", info);
+        mbody = mbody.replace("<!-- ", "<!--").replace(" -->", "-->").replace("src=\"/data/", "src=\"" + "kaya.malgn.co.kr//data/");
+        p.setVar("MBODY", mbody);
+
+        //\ubc1c\uc1a1\uc790
+        String sender = "Princesa_Kaya";
+
+        //\ubc1c\uc1a1
+        m.mailFrom = sender;
+        m.mail(info.s("email"), mbody, p.fetchAll());
+
+        m.jsAlert("\uc778\uc99d\ubc88\ud638\uac00 \ubc1c\uc1a1\ub410\uc2b5\ub2c8\ub2e4.");
+
+        //\uc138\uc158
+        m.setSession("LOGIN_ID", f.get("login_id"));
+        m.setSession("EMAIL", f.get("email"));
+        m.setSession("AUTH_NO", authNo);
+
+    } else if ("confirm_auth_no".equals(m.rs("confirm_auth_no"))) {
+        m.jsAlert(m.rs("confirm_auth_no"));
+        String authNo = f.get("auth_no"); //\uc785\ub825\ubc1b\uc740 \uc778\uc99d\ubc88\ud638
+
+        //\uc815\ubcf4
+        DataSet info = user.find("login_id = ? AND email = ? ", new Object[] { f.get("login_id"), f.get("email") });
+        if (!info.next()){
+            m.jsAlert("\uc815\ud655\ud558\uc9c0 \uc54a\uc740 \ud68c\uc6d0\uc815\ubcf4\uc785\ub2c8\ub2e4.");
+            return;
+        }
+
+        if (!authNo.equals(m.getSessin("AUTH_NO"))){
+            m.jsAlert("\uc778\uc99d\uc815\ubcf4\uac00 \uc77c\uce58\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. \uc778\uc99d\uc815\ubcf4\ub97c \ub2e4\uc2dc \ubc1c\uae09\ubc1b\uc73c\uc138\uc694.");
+            return;
+        }
+
+        //\uc0c8 \ube44\ubc00\ubc88\ud638 \ubc1c\uae09
+        String newPassword = m.encrypt(m.getUniqId(), "SHA-256");
+        user.item("password", newPassword);
+        user.item("fail_count", 0);
+        if(!user.update("login_id = " + info.s("login_id"))) {
+            m.jsAlert("\uc218\uc815\ud558\ub294 \uc911 \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4."); return;
+        }
+
+        //\ubc1c\uc1a1
+        p.setVar("new_password", newPassword);
+//        mailTemplate.sendMail(siteinfo, uinfo, "findpw_newpw", "\uc0c8\ub85c\uc6b4 \ube44\ubc00\ubc88\ud638\uac00 \ubc1c\uae09\ub418\uc5c8\uc2b5\ub2c8\ub2e4.", p);
+
+        String mbody = p.fetchString("\uc0c8\ub85c\uc6b4 \ube44\ubc00\ubc88\ud638\ub294" + newPassword + "\uc785\ub2c8\ub2e4.");
+
+        p.setLayout("blank");
+        p.setVar("user", info);
+        mbody = mbody.replace("<!-- ", "<!--").replace(" -->", "-->").replace("src=\"/data/", "src=\"" + "kaya.malgn.co.kr//data/");
+        p.setVar("MBODY", mbody);
+
+        //\ubc1c\uc1a1\uc790
+        String sender = "Princesa_Kaya";
+
+        //\ubc1c\uc1a1
+        m.mailFrom = sender;
+        m.mail(info.s("email"), mbody, p.fetchAll());
+
+        m.jsAlert("\uc778\uc99d\ubc88\ud638\uac00 \ubc1c\uc1a1\ub410\uc2b5\ub2c8\ub2e4.");
 
 
+        //\uc138\uc158
+        m.setSession("LOGIN_ID", "");
+        m.setSession("EMAIL", "");
+        m.setSession("AUTH_NO", "");
 
-    //\uc774\uba54\uc77c\uc5d0 \uc784\uc2dc \ube44\ubc88 \uc804\uc1a1
+        m.jsAlert("\uc0c8\ub85c\uc6b4 \ube44\ubc00\ubc88\ud638\ub97c \uc774\uba54\uc77c\ub85c \ubc1c\uae09\ud558\uc5ec \ub4dc\ub838\uc2b5\ub2c8\ub2e4. \uc774\uba54\uc77c\uc744 \ud655\uc778\ud558\uc138\uc694.");
+        m.jsReplace("/member/login.jsp", "parent");
+        return;
 
+
+    }
+
+    //\ub2e4\uc2dc \ub85c\uadf8\uc778 \ud398\uc774\uc9c0
 
 
 }
@@ -186,11 +277,11 @@ p.display();
     String resourcePath = loader.getResourcePathSpecificFirst();
     mergePath.addClassPath(resourcePath);
     com.caucho.vfs.Depend depend;
-    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/main/find_password.jsp"), 6992254535133283234L, false);
+    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/main/find_password.jsp"), 4555569196691443374L, false);
     com.caucho.jsp.JavaPage.addDepend(_caucho_depends, depend);
     depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/main/init.jsp"), 8518862821725454307L, false);
     com.caucho.jsp.JavaPage.addDepend(_caucho_depends, depend);
-    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/init.jsp"), -7541893982344484097L, false);
+    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/init.jsp"), -3760488625864405609L, false);
     com.caucho.jsp.JavaPage.addDepend(_caucho_depends, depend);
   }
 }

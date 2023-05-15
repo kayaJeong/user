@@ -74,35 +74,32 @@ if(auth.isValid()) {
     userName = auth.getString("NAME");
 //    userType = auth.getString("TYPE");
 
-} else {
+} /*else {
     if(request.getRequestURI().indexOf("/sysop/main/login.jsp") == -1
             && request.getRequestURI().indexOf("/sysop/user/password_find.jsp") == -1 ) { //\ub85c\uadf8\uc778 \ud398\uc774\uc9c0\uba74 \uc81c\uc678
         m.jsReplace(auth.loginURL, "top");
         return;
     }
-}
+}*/
 
 
 
 
       
 
-
 //\uac1d\uccb4
 UserDao user= new UserDao();
-//user.setDebug(out);
 
 //\ud3fc\uccb4\ud06c
 f.addElement("login_id", null, "hname:'\ub85c\uadf8\uc778\uc544\uc774\ub514', required:'Y'");
 f.addElement("password", null, "hname:'\ube44\ubc00\ubc88\ud638', required:'Y'");
 
-
-if (m.isPost()) {
+if (m.isPost() && f.validate()) {
 
     Calendar startCalendar = new GregorianCalendar();
     Date time = startCalendar.getTime();
     String nowTime = Integer.toString(time.getYear())+Integer.toString(time.getHours())+Integer.toString(time.getMinutes())+ Integer.toString(time.getSeconds());
-    String limitTime = "0"; //5\ubd84 \uc2dc\uac04 \uc81c\ud55c
+    String limitTime = "0"; //5\ubd84 \uc2dc\uac04 \uc81c\ud55cd
 
     if(Integer.parseInt(nowTime) < Integer.parseInt(limitTime)){ //\uc2dc\uac04\uc774 \uc544\uc9c1 \uc548 \uc9c0\ub0a8
         m.jsAlert("\ube44\ubc00\ubc88\ud638 5\ud68c \uc624\uc785\ub825\ud588\uc2b5\ub2c8\ub2e4. 5\ubd84 \ub3d9\uc548 \ub85c\uadf8\uc778\uc774 \uc81c\ud55c\ub429\ub2c8\ub2e4.");
@@ -112,9 +109,7 @@ if (m.isPost()) {
     String password = f.get("password");
     password = m.encrypt(password, "SHA-256");
 
-    loginId = f.get("login_id");
-
-    DataSet info = user.find("login_id = ? AND user_kind = 'A' AND status = 1", new Object[] { loginId });
+    DataSet info = user.find("login_id = ? AND user_kind = 'A' AND status = 1", new Object[] { f.get("login_id") });
 
     if(!info.next()) {
         m.jsAlert("\uc544\uc774\ub514 \ub610\ub294 \ube44\ubc00\ubc88\ud638\uac00 \uc77c\uce58\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.");
@@ -153,7 +148,7 @@ if (m.isPost()) {
 
     //\uc774\ub3d9
     m.jsAlert("\ub85c\uadf8\uc778 \uc644\ub8cc");
-    m.jsReplace("index.jsp", "parent");
+//    m.jsReplace("index.jsp", "parent");
     return;
 }
 
@@ -237,9 +232,9 @@ p.display();
     String resourcePath = loader.getResourcePathSpecificFirst();
     mergePath.addClassPath(resourcePath);
     com.caucho.vfs.Depend depend;
-    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/main/login.jsp"), 224645755165178121L, false);
+    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/main/login.jsp"), -8071100048490766826L, false);
     com.caucho.jsp.JavaPage.addDepend(_caucho_depends, depend);
-    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/init.jsp"), -5300827354373470630L, false);
+    depend = new com.caucho.vfs.Depend(appDir.lookup("sysop/init.jsp"), -3760488625864405609L, false);
     com.caucho.jsp.JavaPage.addDepend(_caucho_depends, depend);
   }
 }

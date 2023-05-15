@@ -38,13 +38,13 @@ if(auth.isValid()) {
     userName = auth.getString("NAME");
 //    userType = auth.getString("TYPE");
 
-} else {
+} /*else {
     if(request.getRequestURI().indexOf("/sysop/main/login.jsp") == -1
             && request.getRequestURI().indexOf("/sysop/user/password_find.jsp") == -1 ) { //로그인 페이지면 제외
         m.jsReplace(auth.loginURL, "top");
         return;
     }
-}
+}*/
 
 
 
